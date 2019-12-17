@@ -4,7 +4,7 @@ pipeline {
 
 		stage('Create kubernetes cluster') {
 			steps {
-				withAWS(credentials:'mahajenkinsA') {
+				withAWS(credentials:'Jenkins_local') {
 					sh '''
 						eksctl create cluster \
 						--name capstonecluster \
@@ -23,9 +23,9 @@ pipeline {
 		
 		stage('Create conf file cluster') {
 			steps {
-				withAWS(region:'us-west-2', credentials:'mahajenkinsA') {
+				withAWS(region:'us-east-1', credentials:'Jenkins_local') {
 					sh '''
-						aws2 eks --region us-west-2 update-kubeconfig --name capstonecluster
+						aws2 eks --region us-east-1 update-kubeconfig --name capstonecluster
 					'''
 				}
 			}
