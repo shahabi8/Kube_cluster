@@ -9,12 +9,12 @@ pipeline {
 						eksctl create cluster \
 						--name capstonecluster \
 						--version 1.13 \
-						--nodegroup-name standard-workers \
+						--region us-east-1
 						--node-type t2.small \
 						--nodes 2 \
 						--nodes-min 1 \
 						--nodes-max 3 \
-						--node-ami auto
+						--name my-demo
 					'''
 				}
 			}
@@ -25,7 +25,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-east-1', credentials:'Jenkins_local') {
 					sh '''
-						aws2 eks --region us-east-1 update-kubeconfig --name capstonecluster
+						aws2 eks --region us-east-1 update-kubeconfig --name my-demo
 					'''
 				}
 			}
